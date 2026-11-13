@@ -1,0 +1,102 @@
+{
+  "version": "sentiment-social-v1",
+  "prepared_date": "2026-11-12",
+  "seed": "42",
+  "sampling": "SHA256 ranking; 1000 per class; separate SHA256 row shuffle",
+  "labels_changed": false,
+  "selection_uses_model_predictions": false,
+  "english_revision": "4fbd22cd78421f05b1ecdb4fc5725bc7a7bd8f66",
+  "turkish_revision": "9647a08a9f0f6ac117d6f79a65578315b27682d9",
+  "sources": {
+    "english/test_text.txt": {
+      "url": "https://raw.githubusercontent.com/cardiffnlp/tweeteval/4fbd22cd78421f05b1ecdb4fc5725bc7a7bd8f66/datasets/sentiment/test_text.txt",
+      "sha256": "09a93a55c63fd93f97485ef7302889d7edb4091cd49733aa37da094f0bfa0675",
+      "local_path": "english/ingilizce_tum.csv",
+      "local_sha256": "de505ef30ee591592e1f5d4cd42854455ff402505d4ae811fe095ce16f368a0a"
+    },
+    "english/test_labels.txt": {
+      "url": "https://raw.githubusercontent.com/cardiffnlp/tweeteval/4fbd22cd78421f05b1ecdb4fc5725bc7a7bd8f66/datasets/sentiment/test_labels.txt",
+      "sha256": "6afb4afe9374d1f983bcf9a7c79b108d0f37fdf020a83f30488309bed215db9d",
+      "local_path": "english/ingilizce_tum.csv",
+      "local_sha256": "de505ef30ee591592e1f5d4cd42854455ff402505d4ae811fe095ce16f368a0a"
+    },
+    "english/mapping.txt": {
+      "url": "https://raw.githubusercontent.com/cardiffnlp/tweeteval/4fbd22cd78421f05b1ecdb4fc5725bc7a7bd8f66/datasets/sentiment/mapping.txt",
+      "sha256": "c0572796fbe261d8ea5fd16c5061076fbba49bc69fc865d6abccaf60daacee24",
+      "local_path": "english/ingilizce_tum.csv",
+      "local_sha256": "de505ef30ee591592e1f5d4cd42854455ff402505d4ae811fe095ce16f368a0a"
+    },
+    "turkish/positive.txt": {
+      "url": "https://raw.githubusercontent.com/sercankulcu/sentiment-analysis-of-tweets-in-Turkish/9647a08a9f0f6ac117d6f79a65578315b27682d9/training%20data/positive.txt",
+      "sha256": "67c938b1da2345bc8ef40f607330f434b642bf3f9176642261e025458029f28d",
+      "local_path": "turkish/positive.csv",
+      "local_sha256": "815d1fa345f2fb6de6c4a626281c3c45980777d5a3af7d17b97c2ce48040717d"
+    },
+    "turkish/negative.txt": {
+      "url": "https://raw.githubusercontent.com/sercankulcu/sentiment-analysis-of-tweets-in-Turkish/9647a08a9f0f6ac117d6f79a65578315b27682d9/training%20data/negative.txt",
+      "sha256": "d8e8680470fde6d5d83397e7a4d1bd92f81be62b9df12307c96dd6c16a67ede2",
+      "local_path": "turkish/negative.csv",
+      "local_sha256": "84acafca6eb89a7e359c33f4f7dc6476e5deef0258b15d1e3b154f1886f3593c"
+    },
+    "turkish/notr.txt": {
+      "url": "https://raw.githubusercontent.com/sercankulcu/sentiment-analysis-of-tweets-in-Turkish/9647a08a9f0f6ac117d6f79a65578315b27682d9/training%20data/notr.txt",
+      "sha256": "a8f0c1da85df82eeedb289896b3c147f858dd704efdbc82e86334f9e9eba78e6",
+      "local_path": "turkish/notr.csv",
+      "local_sha256": "e481523b4eb12684390c6f726a675c128a0313c4a78172e64b5b17c38c03e00b"
+    }
+  },
+  "english_label_mapping": {
+    "0": "negative",
+    "1": "neutral",
+    "2": "positive"
+  },
+  "datasets": {
+    "Ingilizce": {
+      "source_rows": 12284,
+      "source_labels": {
+        "neutral": 5937,
+        "positive": 2375,
+        "negative": 3972
+      },
+      "empty_removed": 0,
+      "conflicting_rows_removed": 7,
+      "duplicates_removed": 0,
+      "outside_three_classes_removed": 0,
+      "eligible_labels": {
+        "neutral": 5934,
+        "positive": 2375,
+        "negative": 3968
+      },
+      "selected_labels": {
+        "positive": 1000,
+        "negative": 1000,
+        "neutral": 1000
+      },
+      "output_sha256": "0d98f21c2de316b589265b87af37290c55fb0122686f58c411d827193f3785e8"
+    },
+    "Turkce": {
+      "source_rows": 6001,
+      "source_labels": {
+        "positive": 1552,
+        "negative": 3001,
+        "neutral": 1448
+      },
+      "empty_removed": 0,
+      "conflicting_rows_removed": 24,
+      "duplicates_removed": 44,
+      "outside_three_classes_removed": 0,
+      "eligible_labels": {
+        "positive": 1545,
+        "negative": 2954,
+        "neutral": 1434
+      },
+      "selected_labels": {
+        "negative": 1000,
+        "positive": 1000,
+        "neutral": 1000
+      },
+      "output_sha256": "57d46aa7045d48b1f475534d7bf2719b4d6e5e68b228b0fbc3d3170117519c53"
+    }
+  },
+  "previous_data_archive": null
+}

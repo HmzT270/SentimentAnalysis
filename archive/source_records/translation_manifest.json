@@ -1,0 +1,17 @@
+{
+  "model": "Helsinki-NLP/opus-mt-tr-en",
+  "revision": "19c65427cc2af5f191337d4899e0348c4af25902",
+  "source_sha256": "57d46aa7045d48b1f475534d7bf2719b4d6e5e68b228b0fbc3d3170117519c53",
+  "num_beams": 4,
+  "max_new_tokens": 256,
+  "output_sha256": "1e682e4b5efe5ff0e3990a601a4ce5fd6dd39d0f613678f96dc65b6db372e83a",
+  "rows": 3000,
+  "device": "cuda",
+  "batch_size": 32,
+  "input_truncation": false,
+  "max_input_tokens": 70,
+  "do_sample": false,
+  "model_url": "https://huggingface.co/Helsinki-NLP/opus-mt-tr-en/tree/19c65427cc2af5f191337d4899e0348c4af25902",
+  "prepared_date": "2026-11-12",
+  "method": "local machine translation"
+}

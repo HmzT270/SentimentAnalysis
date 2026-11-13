@@ -1,0 +1,7 @@
+﻿Dil,Model,Toplam,Doğru,Hatalı,Doğruluk (%),positive hata,negative hata,neutral hata
+İngilizce,VADER,3000,1694,1306,56.47,290,457,559
+İngilizce,BERT,3000,1981,1019,66.03,521,278,220
+İngilizce,Claude,3000,2119,881,70.63,355,230,296
+Türkçe,VADER,3000,1462,1538,48.73,397,579,562
+Türkçe,BERT,3000,1653,1347,55.1,207,257,883
+Türkçe,Claude,3000,1926,1074,64.2,309,311,454
