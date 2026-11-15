@@ -16,6 +16,9 @@ LANGUAGES = {
     "Türkçe": "turkce"
 }
 
+# Dosya adındaki dil kodu -> grafiklerde görünen ad (Türkçe karakterli).
+LANGUAGE_NAMES = {code: name for name, code in LANGUAGES.items()}
+
 MODELS = ["VADER", "BERT", "Claude"]
 LABELS = ["positive", "negative", "neutral"]
 
@@ -82,7 +85,7 @@ def create_confusion_matrix(matrix, language, model):
     ax.set_xlabel("Tahmin Edilen")
     ax.set_ylabel("Gerçek")
     ax.set_title(
-        f"{model} - {language.capitalize()} Karışıklık Matrisi"
+        f"{model} - {LANGUAGE_NAMES[language]} Karışıklık Matrisi"
     )
 
     # Her hücreye tahmin sayısını yaz.
