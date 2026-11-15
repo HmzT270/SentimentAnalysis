@@ -1,4 +1,5 @@
 
+import re
 from pathlib import Path
 import pandas as pd
 
@@ -10,6 +11,16 @@ LANGUAGES = {"ingilizce": "İngilizce", "turkce": "Türkçe"}
 MODELS = ["vader", "bert", "claude"]
 LABELS = ["positive", "negative", "neutral"]
 REVIEW_COLUMNS = ["manuel_inceleme", "aciklama", "inceleme_kaynagi"]
+
+
+# Kaynak veride emojiler soru işaretine dönüşmüş (ör. "??????").
+# Örnek dosyasında bunlar [emoji] olarak gösterilir; "neden???" gibi
+# kelimeye bitişik gerçek noktalama değiştirilmez.
+LOST_EMOJI = re.compile(r"\?{4,}|(?<=\s)\?{2,}(?=\s|$)")
+
+
+def mask_lost_emoji(text):
+    return LOST_EMOJI.sub("[emoji]", str(text))
 
 
 def preserve_reviews(examples, path):
@@ -32,7 +43,11 @@ def preserve_reviews(examples, path):
         if key not in previous.index:
             continue
         old = previous.loc[key]
-        if all(str(row[column]) == old[column] for column in identity):
+        if all(
+            mask_lost_emoji(row[column]) == mask_lost_emoji(old[column])
+            if column == "yorum" else str(row[column]) == old[column]
+            for column in identity
+        ):
             for column in REVIEW_COLUMNS:
                 if column in saved.columns:
                     examples.at[index, column] = old[column]
@@ -170,6 +185,7 @@ def main():
     ]
 
     examples = data.loc[sorted(selected), columns].copy()
+    examples["yorum"] = examples["yorum"].map(mask_lost_emoji)
     path = OUTPUT / "hata_ornekleri.csv"
     examples = preserve_reviews(examples, path)
     examples.to_csv(
