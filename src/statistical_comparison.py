@@ -1,4 +1,4 @@
-"""Reproduce Table 5 from saved predictions; no models or API calls are run."""
+"""Reproduce Tables 5, 12 and 30 from saved predictions; no models or API calls are run."""
 
 import argparse
 import csv
@@ -25,7 +25,7 @@ def load_predictions(language):
     if len(source) != 3000:
         raise ValueError(f"Expected 3000 source rows: {source_path}")
     files = [source_path]
-    correct = {}
+    correct, predicted = {}, {}
     for model in ("vader", "bert", "claude"):
         path = ROOT / "results" / model / f"{language}_{model}.csv"
         rows = read_csv(path)
@@ -44,7 +44,27 @@ def load_predictions(language):
         correct[model] = np.array(
             [row["prediction"] == row["label"] for row in rows], dtype=np.int8
         )
-    return correct, files
+        predicted[model] = (
+            [row["label"] for row in rows], [row["prediction"] for row in rows]
+        )
+    return correct, predicted, files
+
+
+def macro_f1(gold, predicted):
+    """Unweighted mean of per-class F1 (Table 30)."""
+    scores = []
+    for label in sorted(LABELS):
+        tp = sum(g == label and p == label for g, p in zip(gold, predicted))
+        fp = sum(g != label and p == label for g, p in zip(gold, predicted))
+        fn = sum(g == label and p != label for g, p in zip(gold, predicted))
+        scores.append(2 * tp / (2 * tp + fp + fn) if tp else 0.0)
+    return sum(scores) / len(scores)
+
+
+def agreement_counts(correct):
+    """Rows by number of correct models (Table 12); the sum is 3000."""
+    total = sum(correct[model].astype(int) for model in ("vader", "bert", "claude"))
+    return {f"{k}_models_correct": int((total == k).sum()) for k in (3, 2, 1, 0)}
 
 
 def paired_bootstrap(first, second, repetitions, seed):
@@ -88,9 +108,12 @@ def main():
     args = parser.parse_args()
     if args.repetitions < 1:
         parser.error("--repetitions must be positive")
-    records, hashes = [], {}
+    records, hashes, extra = [], {}, []
     for language in ("ingilizce", "turkce"):
-        correct, paths = load_predictions(language)
+        correct, predicted, paths = load_predictions(language)
+        extra.append({"language": language, **agreement_counts(correct),
+                      **{f"macro_f1_{m}": round(macro_f1(*predicted[m]), 4)
+                         for m in ("vader", "bert", "claude")}})
         for path in paths:
             hashes[path.relative_to(ROOT).as_posix()] = hashlib.sha256(path.read_bytes()).hexdigest()
         for first, second in PAIRS:
@@ -103,6 +126,11 @@ def main():
         writer = csv.DictWriter(stream, fieldnames=list(records[0]))
         writer.writeheader()
         writer.writerows(records)
+    extra_path = args.output.with_name("ek_olcumler.csv")
+    with extra_path.open("w", encoding="utf-8-sig", newline="") as stream:
+        writer = csv.DictWriter(stream, fieldnames=list(extra[0]))
+        writer.writeheader()
+        writer.writerows(extra)
     metadata = {
         "bootstrap_repetitions": args.repetitions, "seed_per_pair": args.seed,
         "confidence_level": 0.95, "bootstrap": "paired row resampling; percentile; linear quantile",
@@ -113,7 +141,7 @@ def main():
     args.output.with_suffix(".json").write_text(
         json.dumps(metadata, ensure_ascii=False, indent=2) + "\n", encoding="utf8"
     )
-    for record in records:
+    for record in records + extra:
         print(json.dumps(record, ensure_ascii=False))
 
 
