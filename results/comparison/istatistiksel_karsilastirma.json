@@ -1,0 +1,19 @@
+{
+  "bootstrap_repetitions": 10000,
+  "seed_per_pair": 42,
+  "confidence_level": 0.95,
+  "bootstrap": "paired row resampling; percentile; linear quantile",
+  "mcnemar": "chi-square approximation; continuity correction; 1 degree of freedom",
+  "numpy_version": "2.5.4",
+  "input_sha256": {
+    "data/Ingilizce_3000.csv": "0d98f21c2de316b589265b87af37290c55fb0122686f58c411d827193f3785e8",
+    "results/vader/ingilizce_vader.csv": "40bb17d208456ab94912bc9285124a66ae3b696bfa82934e8fc74822272eba35",
+    "results/bert/ingilizce_bert.csv": "40444592ef168c02431f209b63725508e82578b00c11ae04f4c7108cd7fc303e",
+    "results/claude/ingilizce_claude.csv": "7f0f8387305b7f3c90017f87c17578c04795c46ad8174e00c98ae5226b3444ae",
+    "data/Turkce_3000.csv": "57d46aa7045d48b1f475534d7bf2719b4d6e5e68b228b0fbc3d3170117519c53",
+    "results/vader/turkce_vader.csv": "f85e0c6e276d4bd8f9c0435df8ae4e5ebcd0a8e4ea4113835d3cdc70ab9b62c5",
+    "results/bert/turkce_bert.csv": "789f65dc1dc6e2245a6f87e1fc41a6b9cafffb54722f3ac089fb607594c3bc53",
+    "results/claude/turkce_claude.csv": "8c8f28e4287138cf277040d12ce7a4e945e48da0a9bac26b58be58e17b77d536"
+  },
+  "scope": "single saved run and dataset; unadjusted pairwise p-values"
+}
