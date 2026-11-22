@@ -1,0 +1,3 @@
+﻿language,3_models_correct,2_models_correct,1_models_correct,0_models_correct,macro_f1_vader,macro_f1_bert,macro_f1_claude
+ingilizce,1048,1006,638,308,0.5607,0.6611,0.7101
+turkce,769,997,740,494,0.4863,0.4925,0.6439

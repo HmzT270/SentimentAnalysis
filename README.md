@@ -37,8 +37,11 @@ python src/vader_analysis.py
 python src/bert_analysis.py
 python src/claude_analysis.py
 python src/compare_results.py
+python src/statistical_comparison.py
 python src/error_analysis.py
 ```
+
+`statistical_comparison.py`, kayıtlı tahminlerden McNemar testi ve bootstrap güven aralıklarını (Tablo 5), Macro F1 değerlerini (Tablo 30) ve ortak doğru/hata sayılarını (Tablo 12) üretir; çıktılar `results/comparison/` altındaki `istatistiksel_karsilastirma.csv` ve `ek_olcumler.csv` dosyalarıdır.
 
 Claude adımı `.env` içinde Anthropic API anahtarı gerektirir ve ücretli API çağrısı yapar.
 
