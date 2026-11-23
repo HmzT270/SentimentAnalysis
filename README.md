@@ -15,7 +15,7 @@ GPU yoksa mevcut kurulu PyTorch CPU üzerinde çalışabilir; farklı işletim s
 
 ## Nitel hata incelemesi
 
-`results/comparison/hata_ornekleri.csv` içindeki 103 örneğin `manuel_inceleme` ve `aciklama` alanları Codex tarafından metin bazında doldurulmuştur. `inceleme_kaynagi` sütunu bunun LLM incelemesi olduğunu belirtir; grup üyelerinin veya bağımsız insan etiketleyicilerin anotasyonu olarak sunulmamalıdır. `manuel_inceleme`, kaynak etiketi değiştiren bir alan değildir: `positive`, `negative`, `neutral`, `karma` veya `belirsiz` yorumunu içerir. `karma` birden çok duygu/hedefi; `belirsiz` ise görünür metinle kesinleştirilemeyen kutbu ifade eder. Açıklamalar olası nedenlerdir, modelin iç karar sürecinin kanıtı değildir.
+`results/comparison/hata_ornekleri.csv` içindeki 103 örneğin `manuel_inceleme` ve `aciklama` alanları metin bazında doldurulmuş nitel yorumlardır. `inceleme_kaynagi` sütunu bunun olası nedenlere dayalı bir grup incelemesi olduğunu belirtir; bağımsız insan etiketleyicilerin anotasyonu değildir. `manuel_inceleme`, kaynak etiketi değiştiren bir alan değildir: `positive`, `negative`, `neutral`, `karma` veya `belirsiz` yorumunu içerir. `karma` birden çok duygu/hedefi; `belirsiz` ise görünür metinle kesinleştirilemeyen kutbu ifade eder. Açıklamalar olası nedenlerdir, modelin iç karar sürecinin kanıtı değildir.
 
 Ana başarı hesapları kaynak etiketleriyle yapılır; bu inceleme etiketleri sonuçları veya tahminleri değiştirmez. Örnekler hatalardan seçildiği ve Türkçe nötr sınıfı ayrıca örneklendiği için buradan tüm veri setinin etiket hata oranı çıkarılamaz. `error_analysis.py` yeniden çalıştırıldığında aynı metin, kaynak etiket ve üç tahmin için incelemeleri korur; bunlardan biri değişirse o satırın eski incelemesini taşımaz.
 
