@@ -1,165 +1,165 @@
 # Karşılaştırmalı Duygu Analizi — Tam Konuşma Metni
 
-Bu metin, `SentimentAnalysis_Sunum.pptx` dosyasının 6–6–6 düzenindeki 18 slaydının tamamıyla aynı sıradadır. Başlıklar ve bu giriş okunmaz; her slaydın altındaki paragraflar aynen okunur. Konuşmacı geçişleri ve kapanış metnin içindedir. Slaytlar 1’den 18’e sırayla ilerletilir. Sonuç 17. slaytta, kaynakça ve son teşekkür 18. slayttadır.
+Bu metin, `SentimentAnalysis_Sunum.pptx` dosyasının 6–6–6 düzenindeki 18 slaydının tamamıyla aynı sıradadır. Başlıklar ve bu giriş okunmaz; her slaydın altındaki paragraflar okunur. Konuşmacı geçişleri ve kapanış metnin içindedir. Slaytlar 1’den 18’e sırayla ilerletilir. Sonuç 17. slaytta, kaynakça ve son teşekkür 18. slayttadır.
 
 Konuşmacılar: **Merve: 1–6. slaytlar. Kerem: 7–12. slaytlar. Hamza: 13–18. slaytlar.**
 
-Metin **1.242 konuşma kelimesidir**. Dakikada yaklaşık 140 kelimelik okuma ve kısa geçişlerle hedef süre **9,5 dakika civarındadır**; gerçek süre okuma hızına bağlıdır. Her kişi yaklaşık üç dakika konuşur. Hiçbir bölümde ek cümle kurmak veya doğaçlama yapmak gerekmez.
+Metin **1.169 konuşma kelimesidir**. Dakikada yaklaşık 140 kelimelik okuma ve kısa geçişlerle hedef süre **8,3 dakika civarındadır**; gerçek süre okuma hızına bağlıdır. Her kişi yaklaşık üç dakika konuşur.
 
 ## Slayt 1 — Karşılaştırmalı Duygu Analizi
 **Konuşmacı: Merve Cemre Akkuş**
 
-Merhaba hocam. Ben Merve Cemre Akkuş. Kerem Kalyoncu ve Hamza Taşbay ile hazırladığımız karşılaştırmalı duygu analizi projesini sunacağız.
+Merhaba hocam, ben Merve Cemre Akkuş. Kerem Kalyoncu ve Hamza Taşbay’la birlikte hazırladığımız duygu analizi projesini sunacağız.
 
-İngilizce ve Türkçe yorumlarda VADER, BERT ve Claude’un başarısını ve hatalarını karşılaştırdık. Ben veri setlerini ve VADER’i, Kerem BERT’i, Hamza Claude’u ve genel değerlendirmeyi anlatacak. Her yöntem için genel doğruluğun yanında pozitif, negatif ve nötr sınıflardaki yanlış tahminleri de inceledik.
+Projede İngilizce ve Türkçe yorumlar üzerinde VADER, BERT ve Claude’u karşılaştırdık; hangisi ne kadar başarılı, nerelerde hata yapıyor, buna baktık. Ben veri setlerini ve VADER’i anlatacağım, Kerem BERT’i, Hamza da LLM tabanlı sınıflandırmayı, yani Claude’u, ve genel sonucu. Sadece doğruluğa bakmadık; pozitif, negatif ve nötr yorumlarda yanlış tahminlerin nasıl dağıldığını da inceledik.
 
 ## Slayt 2 — Veri setleri ve sınıf dağılımları
 **Konuşmacı: Merve Cemre Akkuş**
 
-İngilizcede TweetEval’in SemEval kaynaklı resmî test verilerini, Türkçede Sercan Külcü’nün tweet veri setini kullandık. Bunlar önceden etiketlenmiş kaynaklardır.
+İngilizce için TweetEval’in SemEval kaynaklı resmî test verisini, Türkçe için Sercan Külcü’nün tweet veri setini kullandık. İkisi de daha önceden etiketlenmiş veri setleri.
 
-Her dilde bin pozitif, bin negatif ve bin nötr olmak üzere üç bin yorum seçtik. Toplam altı bin özgün yorum değerlendirdik. Sınıfların eşit büyüklükte olması, hata sayılarını aynı örnek sayısı üzerinden karşılaştırmamızı sağladı.
+Her dilden bin pozitif, bin negatif, bin nötr olmak üzere 3.000 yorum seçtik; yani toplamda 6.000 özgün yorum var. Sınıfları eşit tuttuk ki hata sayılarını aynı örnek sayısı üzerinden rahatça karşılaştırabilelim.
 
-Türkçe yorumların VADER için hazırlanan İngilizce çevirileri yeni gözlemler değildir; özgün yorum sayısını artırmaz.
+Bir not: Türkçe yorumların VADER için hazırladığımız İngilizce çevirileri yeni veri sayılmıyor; özgün yorum sayısı yine 6.000.
 
 ## Slayt 3 — Veri hazırlama ve ortak değerlendirme
 **Konuşmacı: Merve Cemre Akkuş**
 
-Veri hazırlama kodu önce boş kayıtları, tekrarları ve aynı metne farklı etiket verilmiş çelişkili kayıtları ayıklıyor. Ardından sabit bir seçim kuralıyla her sınıftan bin yorum seçiyor. Model tahminleri veri seçiminde kullanılmadı ve kaynak etiketleri değiştirilmedi.
+Önce veriyi temizledik: boş kayıtları, tekrar edenleri ve aynı metne farklı etiket verilmiş çelişkili kayıtları çıkardık. Sonra sabit bir kuralla her sınıftan bin yorum seçtik. Seçim sırasında model tahminlerini kullanmadık, kaynak etiketlerine de dokunmadık.
 
-Her dilde yöntemleri aynı yorumlar üzerinde değerlendirdik. Doğruluk, doğru tahminlerin toplam yorumlara oranıdır. Sınıf bazlı hatayı ise gerçek etikete göre saydık. Örneğin nötr bir yorum pozitif tahmin edilmişse bu, nötr sınıfın hatasıdır.
+Üç yöntemi de aynı yorumlar üzerinde değerlendirdik. Doğruluk, doğru tahminlerin tüm yorumlara oranı. Sınıf bazlı hataları ise gerçek etikete göre saydık. Mesela nötr bir yorum pozitif tahmin edilmişse, bu nötr sınıfın hatası oluyor.
 
-Hazırlama, tahmin ve değerlendirme kodları ayrıdır; karşılaştırma ve hata analizi, kaydedilen tahmin dosyalarından üretilir.
+Kod tarafında hazırlama, tahmin ve değerlendirme ayrı çalışıyor; karşılaştırma ve hata analizi de kaydedilmiş tahmin dosyalarından üretiliyor.
 
 ## Slayt 4 — Üç yönteme genel bakış
 **Konuşmacı: Merve Cemre Akkuş**
 
-Üç yaklaşımın temel farkı burada görülüyor. VADER, duygu sözlüğünü ve dil kurallarını kullanıyor. BERT grubunda, her dil için hazır bir duygu sınıflandırıcısı çalıştırıyoruz. Claude’da ise modele bir sınıflandırma istemi gönderiyoruz.
+Üç yöntemin farkı kısaca şöyle: VADER duygu sözlüğü ve dil kurallarıyla çalışıyor. BERT için her dilde hazır bir duygu sınıflandırıcısı kullandık. Claude’a ise bir istem gönderip yorumu sınıflandırmasını istedik.
 
-İngilizce yorumlar üç yönteme de özgün biçimiyle verildi. Türkçede VADER İngilizce çeviriyi, BERT ve Claude özgün Türkçe metni kullandı. Dolayısıyla VADER’in Türkçe sonucunu yorumlarken çeviri etkisini de dikkate almak gerekiyor.
+İngilizce yorumlar üç yönteme de olduğu gibi verildi. Türkçede VADER İngilizce çeviriyi, BERT ve Claude ise özgün Türkçe metni gördü. O yüzden VADER’in Türkçe sonucuna bakarken çevirinin etkisini de akılda tutmak gerekiyor.
 
 ## Slayt 5 — VADER: uygulama ve sonuçlar
 **Konuşmacı: Merve Cemre Akkuş**
 
-VADER, sözcük puanlarını olumsuzluk, vurgu ve noktalama gibi kurallarla birleştirerek birleşik bir duygu skoru üretir. Bu yöntemde model eğitimi yapmadık.
+VADER, kelimelerin duygu puanlarını olumsuzluk, vurgu ve noktalama gibi kurallarla birleştirip tek bir skor üretiyor. Bu yöntemde herhangi bir model eğitimi yapmadık.
 
-Skor sıfır virgül sıfır beş ve üzerindeyse pozitif, eksi sıfır virgül sıfır beş ve altındaysa negatif, aradaki değerlerde nötr kabul ettik.
+Skor 0,05 ve üzerindeyse pozitif, eksi 0,05 ve altındaysa negatif, arası da nötr kabul ettik.
 
-Türkçe yorumları OPUS-MT modeliyle İngilizceye çevirdik. Çeviri kodu ile VADER tahmin kodu ayrı çalışıyor. Doğruluk İngilizcede yüzde elli altı virgül kırk yedi, Türkçede yüzde kırk sekiz virgül yetmiş üç oldu. Şimdi çeviri sorununa gerçek bir örnek göstereceğim.
+Türkçe yorumları OPUS-MT ile İngilizceye çevirdik; çeviri kodu ile VADER kodu ayrı çalışıyor. Doğruluk İngilizcede yüzde 56,47, Türkçede yüzde 48,73 oldu. Çevirinin neye yol açabildiğini de gerçek bir örnekle göstereyim.
 
 ## Slayt 6 — Çeviri, mecazi sevgiyi tersine çevirebiliyor
 **Konuşmacı: Merve Cemre Akkuş**
 
-Yorumdaki “hastayım sana, dermansızım” ifadesinin kaynak etiketi pozitif. VADER ve BERT negatif, Claude pozitif tahmin etmiş.
+Bu yorumda “hastayım sana, dermansızım” deniyor; kaynak etiketi pozitif. VADER ve BERT negatif tahmin etmiş, Claude pozitif.
 
-“Hastayım sana” ifadesi, İngilizcede “senden bıktım” anlamına gelebilen “I’m sick of you” biçimine çevrilmiş. Böylece mecazi sevgi ifadesinin duygu yönü değişmiş.
+“Hastayım sana” ifadesi İngilizceye “I’m sick of you” diye çevrilmiş; bu da “senden bıktım” gibi bir anlama gelebiliyor. Yani sevgi ifadesi çeviride ters yöne dönmüş.
 
-VADER bu çeviriyi kullandığından girdisi etkileniyor. BERT özgün Türkçeyi okuduğu için onun hatasını çeviriye bağlayamayız. Bu ayrım, aynı yanlış tahminin farklı nedenlerle oluşabileceğini gösteriyor. Şimdi BERT’i Kerem anlatacak.
+VADER çeviriyi kullandığı için bundan etkileniyor. BERT ise özgün Türkçeyi okuyor, onun hatasını çeviriye bağlayamayız. Yani aynı yanlış tahmin farklı nedenlerden çıkabiliyor. Şimdi sözü BERT için Kerem’e bırakıyorum.
 
 ## Slayt 7 — BERT nasıl duygu tahmini yapıyor?
 **Konuşmacı: Kerem Kalyoncu**
 
-Teşekkür ederim Merve. Ben Kerem Kalyoncu.
+Teşekkürler Merve. Ben Kerem Kalyoncu.
 
-BERT tabanlı yaklaşımda metin önce token adı verilen parçalara ayrılır. Token her zaman tam bir kelime değildir. Model, parçaları cümle içindeki ilişkileriyle değerlendirerek bağlamsal bir temsil oluşturur. Duygu sınıflandırma katmanı bu temsilden pozitif, negatif veya nötr etiketi üretir.
+BERT’te metin önce token denen küçük parçalara ayrılıyor; bir token her zaman tam bir kelime olmuyor. Model bu parçaları cümledeki ilişkileriyle birlikte değerlendirip bağlama göre bir temsil çıkarıyor. En sonda da bir sınıflandırma katmanı pozitif, negatif ya da nötr etiketini veriyor.
 
-Amaç, tek bir sözcüğün puanından daha geniş bağlamı değerlendirmektir. Ancak bu özellik, mecazların veya örtük duyguların her zaman doğru anlaşılacağını garanti etmez.
+Yani amaç, tek tek kelimelerin puanına değil, bağlama bakmak. Ama bu, mecazlı ya da dolaylı anlatılan duyguları her zaman doğru anlayacağı anlamına gelmiyor.
 
 ## Slayt 8 — BERT: modeller, ayarlar ve sonuçlar
 **Konuşmacı: Kerem Kalyoncu**
 
-İngilizcede RoBERTa-large, Türkçede BERTurk tabanlı hazır duygu modellerini kullandık. Bunlar yayıncıları tarafından duygu analizi için hazırlanmıştı; proje kapsamında yeniden eğitim yapmadık.
+İngilizcede RoBERTa-large, Türkçede BERTurk tabanlı hazır duygu modellerini kullandık. Bu modeller yayıncıları tarafından duygu analizi için hazırlanmıştı; biz yeniden eğitim yapmadık.
 
-Kod, yorumları on altılık gruplarla işler. İki yüz elli altı tokenı aşan girdiler kesilir. Grup büyüklüğüyle metnin uzunluk sınırı farklı ayarlardır. GPU varsa GPU, yoksa CPU kullanılır. Çıktılar ortak üç etikete dönüştürülüp CSV’ye kaydedilir.
+Kod yorumları 16’şarlık gruplar halinde işliyor ve çok uzun yorumları kısaltıyor. GPU varsa onu, yoksa CPU’yu kullanıyor. Çıktılar da ortak üç etikete çevrilip CSV’ye kaydediliyor.
 
-Doğruluk İngilizcede yüzde altmış altı virgül sıfır üç, Türkçede yüzde elli beş virgül on oldu. Ancak genel doğruluk tek başına yeterli değil.
+Doğruluk İngilizcede yüzde 66,03, Türkçede yüzde 55,10 çıktı. Ama genel doğruluk tek başına yeterli değil; asıl farkı sınıflara bakınca görüyoruz.
 
 ## Slayt 9 — BERT: Türkçe nötr sınıfında 883 hata
 **Konuşmacı: Kerem Kalyoncu**
 
-Türkçe BERT, bin nötr yorumun yalnızca yüz on yedisini doğru sınıflandırdı. Dört yüz seksen üçünü pozitif, dört yüzünü negatif tahmin etti. Böylece nötr sınıfta sekiz yüz seksen üç hata oluştu; nötr duyarlılığı yüzde on bir virgül yetmişte kaldı.
+Türkçe BERT, bin nötr yorumdan sadece 117’sini doğru bildi. 483’ünü pozitif, 400’ünü negatif saymış; yani nötr sınıfta 883 hata var. Nötr duyarlılığı yüzde 11,70’te kalıyor.
 
-Duyarlılık, gerçek nötr yorumların ne kadarının yakalandığını ifade ediyor. Değerlendirme verisinde her sınıfta bin yorum bulunduğundan bu sonuç, nötr örneklerin azlığıyla açıklanamaz. İngilizce BERT’te ise yedi yüz seksen nötr doğru tahmini var.
+Duyarlılık, gerçek nötr yorumların ne kadarının yakalandığı demek. Her sınıfta bin yorum olduğu için bunu nötr örneklerin az olmasıyla açıklayamayız. İngilizce BERT’te ise 780 nötr yorum doğru bulunmuş.
 
 ## Slayt 10 — Türkçe karışıklık matrisleri
 **Konuşmacı: Kerem Kalyoncu**
 
-Matrislerde satırlar gerçek sınıfı, sütunlar tahmini gösteriyor. Köşegendeki sayılar doğru, diğer hücreler yanlış tahminlerdir. BERT ortadaki matristir.
+Bu matrislerde satırlar gerçek sınıfı, sütunlar modelin tahminini gösteriyor. Köşegen doğru tahminler, geri kalanı hatalar. Ortadaki BERT’in matrisi.
 
-Nötr satırındaki kaymanın yanında BERT’in bin pozitif yorumun yedi yüz doksan üçünü, bin negatif yorumun yedi yüz kırk üçünü doğru bulduğunu görüyoruz. Sorun bütün sınıflara eşit yayılmıyor; nötr ayrımında yoğunlaşıyor.
+Nötr satırındaki kaymanın yanında, BERT bin pozitif yorumun 793’ünü, bin negatif yorumun 743’ünü doğru bulmuş. Yani sorun her sınıfa eşit yayılmıyor, nötr ayrımında toplanıyor.
 
-İki dilde farklı modeller ve veri kaynakları kullandık. Bu nedenle farkı yalnızca Türkçenin zorluğuna bağlayamayız. Modelin alan uyumu da incelenmeli.
+İki dilde farklı modeller ve farklı veri kaynakları kullandık; o yüzden bu farkı sadece Türkçenin zor olmasına bağlayamayız. Modelin veriye uyumu da incelenmesi gereken bir konu.
 
 ## Slayt 11 — BERT örneği: ağlama, beğeniyi anlatabiliyor
 **Konuşmacı: Kerem Kalyoncu**
 
-Bu İngilizce yorumda kullanıcı, Fantastik Canavarlar filmini dördüncü izleyişinde bile John Williams’ın açılış müziğiyle gözlerinin dolduğunu anlatıyor. Kaynak etiketi pozitif; VADER ve BERT negatif, Claude pozitif tahmin etmiş.
+Bu İngilizce yorumda kullanıcı, Fantastik Canavarlar’ı dördüncü kez izlediği halde John Williams’ın açılış müziğiyle gözlerinin dolduğunu anlatıyor. Kaynak etiketi pozitif; VADER ve BERT negatif, Claude pozitif tahmin etmiş.
 
-Ağlama burada üzüntüden çok beğeni ve duygulanmayı anlatıyor. Tekrar izleme ve müzikten etkilenme, bu ifadenin bağlamını oluşturuyor.
+Burada ağlamak üzüntüden çok duygulanmayı ve beğeniyi anlatıyor. Filmi tekrar izlemek ve müzikten etkilenmek de bunun bağlamını oluşturuyor.
 
-Olası açıklama, modelin bu olumlu bağlamı yorumlamadaki güçlüğü. Ancak tek örnekten modelin iç karar nedenini kesin çıkaramayız. Bu yüzden sayısal sonuçlarla birlikte gerçek yorumları da inceledik.
+Modelin bu olumlu bağlamı yakalayamamış olması mümkün. Ama tek örnekten modelin neden öyle karar verdiğini kesin söyleyemeyiz; bu yüzden sayılarla birlikte gerçek yorumlara da baktık.
 
 ## Slayt 12 — İngilizce karışıklık matrisleri
 **Konuşmacı: Kerem Kalyoncu**
 
-İngilizce BERT’in pozitif satırında bin yorumun dört yüz yetmiş dokuzu doğru bulunmuş, dört yüz altmış üçü nötr, elli sekizi negatif tahmin edilmiş.
+İngilizce BERT’in pozitif satırına bakalım: bin yorumdan 479’u doğru bulunmuş, 463’ü nötr, 58’i negatif tahmin edilmiş.
 
-Türkçede nötr yorumların pozitif ve negatif sınıflara kayması, İngilizcede ise pozitif yorumların nötr tahmin edilmesi dikkat çekiyor. Matrisler, yanlış sayısının yanında hatanın yönünü de gösteriyor.
+Türkçede nötr yorumlar pozitife ve negatife kayıyordu; İngilizcede ise pozitif yorumlar nötre kayıyor. Matrisler bize sadece kaç yanlış olduğunu değil, hatanın hangi yöne gittiğini de gösteriyor.
 
-BERT bölümünün sonucu şu: Hazır bir model her dilde ve sınıfta dengeli başarı sağlamıyor. Şimdi Claude’u ve genel karşılaştırmayı Hamza anlatacak.
+BERT için özet şu: hazır bir model her dilde ve her sınıfta dengeli başarı vermiyor. Şimdi LLM tabanlı sınıflandırmayı, yani Claude’u, ve genel karşılaştırmayı Hamza anlatacak.
 
 ## Slayt 13 — Claude: istemle üç sınıflı duygu analizi
 **Konuşmacı: Hamza Taşbay**
 
-Teşekkür ederim Kerem. Ben Hamza Taşbay.
+Teşekkürler Kerem. Ben Hamza Taşbay.
 
-Claude için kodda “claude-haiku-5-5” olarak belirtilen modeli API üzerinden kullandık. Örnek göstermeden sınıflandırma istediğimiz için yaklaşımımız zero-shot sınıflandırmadır.
+Claude için kodda “claude-haiku-5-5” olarak geçen modeli API üzerinden kullandık. Modele örnek göstermeden sınıflandırma yaptırdığımız için bu yaklaşım zero-shot sınıflandırma oluyor.
 
-İstemde yorumu pozitif, negatif veya nötr sınıflandırmasını, duygu yoksa nötr seçmesini ve yorum içeriğini talimat olarak değerlendirmemesini söyledik. Gerçek etiket modele gönderilmedi.
+İstemde modelden yorumu pozitif, negatif ya da nötr olarak sınıflandırmasını, duygu yoksa nötr seçmesini ve yorumun içindeki ifadeleri talimat gibi görmemesini istedik. Gerçek etiket modele hiç gönderilmedi.
 
-Yanıtı üç etiketle sınırlayan JSON şeması kullandık. Çıktı sınırı yüz token, thinking ayarı kapalıydı. İki dilde de özgün metinler gönderildi; tahminler ve token bilgileri kaydedildi.
+Yanıtı üç etiketle sınırlayan bir JSON şeması kullandık; çıktı sınırı 100 token, thinking ayarı kapalıydı. İki dilde de özgün metinler gönderildi, tahminler ve token bilgileri kaydedildi.
 
 ## Slayt 14 — Genel doğruluk ve istatistiksel karşılaştırma
 **Konuşmacı: Hamza Taşbay**
 
-Genel doğrulukta iki dilde de Claude birinci, BERT ikinci, VADER üçüncü oldu. Claude İngilizcede yüzde yetmiş virgül altmış üç, Türkçede yüzde altmış dört virgül yirmi doğruluğa ulaştı.
+Genel doğrulukta iki dilde de sıralama aynı: Claude birinci, BERT ikinci, VADER üçüncü. Claude İngilizcede yüzde 70,63, Türkçede yüzde 64,20 doğruluğa ulaştı.
 
-Claude’un BERT’e farkı İngilizcede dört virgül altmış, Türkçede dokuz virgül on yüzde puan. On bin eşleştirilmiş bootstrap tekrarında yüzde doksan beş güven aralıkları İngilizcede iki virgül seksen ile altı virgül kırk, Türkçede altı virgül doksan yedi ile on bir virgül yirmi yedi. İkisi de sıfırı içermiyor.
+Claude’un BERT’e farkı İngilizcede 4,60, Türkçede 9,10 yüzde puan. 10 bin eşleştirilmiş bootstrap tekrarıyla yüzde 95 güven aralıklarına baktık: İngilizcede 2,80 ile 6,40, Türkçede 6,97 ile 11,27. İkisi de sıfırı içermiyor.
 
-Süreklilik düzeltmeli McNemar testinde altı karşılaştırmanın ham p değeri sıfır virgül sıfır sıfır birden küçük. Çoklu karşılaştırma düzeltmesi yapılmadı.
+Süreklilik düzeltmeli McNemar testinde altı karşılaştırmanın hepsinde ham p değeri 0,001’den küçük. Çoklu karşılaştırma düzeltmesi yapmadık.
 
 ## Slayt 15 — Hatalar sınıflara eşit dağılmıyor
 **Konuşmacı: Hamza Taşbay**
 
-Hataları pozitif, negatif ve nötr sırasıyla okuyacağım.
+Hatalar sınıflara eşit dağılmıyor. Hataları pozitif, negatif, nötr sırasıyla okuyorum.
 
-İngilizcede VADER iki yüz doksan, dört yüz elli yedi, beş yüz elli dokuz; BERT beş yüz yirmi bir, iki yüz yetmiş sekiz, iki yüz yirmi; Claude üç yüz elli beş, iki yüz otuz, iki yüz doksan altı hata yaptı.
+İngilizcede VADER 290, 457, 559; BERT 521, 278, 220; Claude 355, 230, 296 hata yaptı.
 
-Türkçede VADER üç yüz doksan yedi, beş yüz yetmiş dokuz, beş yüz altmış iki; BERT iki yüz yedi, iki yüz elli yedi, sekiz yüz seksen üç; Claude üç yüz dokuz, üç yüz on bir, dört yüz elli dört hata yaptı.
+Türkçede VADER 397, 579, 562; BERT 207, 257, 883; Claude 309, 311, 454 hata yaptı.
 
-Claude genel doğrulukta önde olsa da Türkçe pozitif ve negatifte en az hata BERT’te.
+Yani Claude genel doğrulukta önde olsa da, Türkçe pozitif ve negatifte en az hatayı BERT yapıyor.
 
 ## Slayt 16 — Kaynak etiketiyle uyuşmazlık ayrı incelenmeli
 **Konuşmacı: Hamza Taşbay**
 
-“Bu şehri sevmek ezelden yazılmış kaderime” yorumunun kaynak etiketi nötr, üç modelin tahmini pozitif.
+“Bu şehri sevmek ezelden yazılmış kaderime” yorumunun kaynak etiketi nötr, ama üç model de pozitif tahmin etmiş.
 
-Sevmek ifadesi etiketi sorgulatıyor; ancak model uzlaşması, etiket hatasını kanıtlamaz. Üç modelin birlikte kaynakla uyuşmadığı kayıt sayısı İngilizcede üç yüz sekiz, Türkçede dört yüz doksan dört.
+“Sevmek” ifadesi etiketi sorgulatıyor. Ama üç modelin aynı fikirde olması, etiketin hatalı olduğunu kanıtlamaz. Üç modelin de yanıldığı kayıt sayısı İngilizcede 308, Türkçede 494.
 
-Bunları doğrulanmış etiket hatası saymadık ve etiketleri değiştirmedik. Kesin karar için bağımsız insan incelemesi gerekir. Başarı oranlarımız da kaynak etiketlerine göre hesaplanmıştır.
+Bunları doğrulanmış etiket hatası saymadık, etiketlere de dokunmadık. Kesin karar için bağımsız bir insan incelemesi gerekir. Başarı oranlarımız da kaynak etiketlere göre hesaplandı.
 
 ## Slayt 17 — Sonuç ve iyileştirme öncelikleri
 **Konuşmacı: Hamza Taşbay**
 
-Sonuç olarak Claude genel doğrulukta öne çıkıyor. BERT’in sınıflara göre değişen başarısı ve VADER’in çeviriye duyarlılığı ise hata analizinin önemini gösteriyor.
+Sonuç olarak Claude genel doğrulukta öne çıkıyor. BERT’in sınıflara göre değişen başarısı ve VADER’in çeviriye duyarlı olması da hata analizinin neden önemli olduğunu gösteriyor.
 
-Bulgularımız seçilen veri setleri ve kayıtlı çalıştırmalar için geçerlidir; farklı verilerde aynı sıralamayı garanti etmez.
+Bulgularımız seçtiğimiz veri setleri ve kaydedilmiş çalıştırmalar için geçerli; başka verilerde aynı sıralamanın çıkacağını garanti etmiyoruz.
 
-İyileştirme önceliklerimiz bağımsız etiket denetimi, çeviri ve alan uyumunun kontrolü, model sürümlerinin sabitlenmesi ve tekrar deneyleridir. Tam kaynak kodlar ve açıklamaları Word raporunda bulunuyor. Kaynaklarımız son slaytta yer alıyor.
+İyileştirme olarak bağımsız etiket denetimi, çeviri ve alan uyumunun kontrolü, model sürümlerinin sabitlenmesi ve tekrar deneyleri öneriyoruz. Tam kaynak kodlar ve açıklamaları Word raporunda. Kaynaklarımız da son slaytta.
 
 ## Slayt 18 — Kaynakça
 **Konuşmacı: Hamza Taşbay**
 
-Veri setlerini, yöntemlerin akademik çalışmalarını, kullanılan model kartlarını ve Anthropic belgelerini kaynak gösterdik. Tam kaynakça ve erişim bağlantıları raporumuzda bulunuyor.
+Veri setlerini, yöntemlerin akademik çalışmalarını, model kartlarını ve Anthropic belgelerini kaynak olarak gösterdik. Tam kaynakça ve bağlantılar raporumuzda var.
 
 Dinlediğiniz için teşekkür ederiz hocam.
